@@ -77,6 +77,11 @@ public class Login extends javax.swing.JFrame {
         btnSignup.setText("Sign up");
 
         btnForgotPassword.setText("Forgot Password ?");
+        btnForgotPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnForgotPasswordActionPerformed(evt);
+            }
+        });
 
         btnCounselorLogin.setText("Are you a Counselor ?");
         btnCounselorLogin.addActionListener(new java.awt.event.ActionListener() {
@@ -175,6 +180,12 @@ public class Login extends javax.swing.JFrame {
         new CounselorLogin().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnCounselorLoginActionPerformed
+
+    private void btnForgotPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnForgotPasswordActionPerformed
+        // TODO add your handling code here:
+        new ForgotPassword().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnForgotPasswordActionPerformed
 
     /**
      * @param args the command line arguments

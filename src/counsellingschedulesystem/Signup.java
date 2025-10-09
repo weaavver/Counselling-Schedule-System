@@ -164,6 +164,11 @@ public class Signup extends javax.swing.JFrame {
         getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(392, 232, -1, -1));
 
         btnLogin.setText("Already has an account ?");
+        btnLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLoginActionPerformed(evt);
+            }
+        });
         getContentPane().add(btnLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(647, 350, -1, -1));
 
         btnClear.setText("Clear");
@@ -245,6 +250,12 @@ public class Signup extends javax.swing.JFrame {
         new CounselorSignup().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnApplyCounselorActionPerformed
+
+    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
+        // TODO add your handling code here:
+        new Login().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnLoginActionPerformed
 
     /**
      * @param args the command line arguments
