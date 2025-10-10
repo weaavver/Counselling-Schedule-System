@@ -4,9 +4,7 @@ import jakarta.mail.internet.*;
 import java.util.Properties;
 
 public class EmailSender {
-    public static void main(String toEmail) {
-        
-        String code = CodeGenerator.generateCode();
+    public static boolean send(String toEmail, String code) {
         // Replace with your details 
         //String to = email;       // Receiver's email
         String from = "emanuelmalbarosa4@gmail.com";      // Your Gmail
@@ -35,7 +33,7 @@ public class EmailSender {
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail));
             message.setSubject("Password Reset Confirmation");
             message.setText("The code is "+code+"\n Do not share this with anyone FUCKING BITCH ASS NIGGER.");
-
+            
             // Send it
             Transport.send(message);
             System.out.println("✅ Email sent successfully!");
@@ -43,5 +41,6 @@ public class EmailSender {
         } catch (MessagingException e) {
             e.printStackTrace();
         }
+        return true;
     }
 }

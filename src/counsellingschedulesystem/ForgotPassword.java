@@ -3,8 +3,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package counsellingschedulesystem;
+import dao.UserDao;
+import dao.CodeGenerator;
 import dao.EmailSender;
 import javax.swing.JOptionPane;
+
 /**
  *
  * @author Admin
@@ -16,6 +19,7 @@ public class ForgotPassword extends javax.swing.JFrame {
      */
     public ForgotPassword() {
         initComponents();
+        btnSend.setEnabled(false);
     }
 
     /**
@@ -28,27 +32,31 @@ public class ForgotPassword extends javax.swing.JFrame {
     private void initComponents() {
 
         jLabel1 = new javax.swing.JLabel();
-        emailTxt = new javax.swing.JTextField();
-        sendBtn = new javax.swing.JButton();
+        txtEmail = new javax.swing.JTextField();
+        btnSend = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         jLabel1.setText("Reset Password");
 
-        emailTxt.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        emailTxt.setText("Enter your email");
-        emailTxt.addActionListener(new java.awt.event.ActionListener() {
+        txtEmail.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txtEmail.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                emailTxtActionPerformed(evt);
+                txtEmailActionPerformed(evt);
+            }
+        });
+        txtEmail.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtEmailKeyReleased(evt);
             }
         });
 
-        sendBtn.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        sendBtn.setText("Send email");
-        sendBtn.addActionListener(new java.awt.event.ActionListener() {
+        btnSend.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        btnSend.setText("Send email");
+        btnSend.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                sendBtnActionPerformed(evt);
+                btnSendActionPerformed(evt);
             }
         });
 
@@ -62,10 +70,10 @@ public class ForgotPassword extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jLabel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(emailTxt))
+                            .addComponent(txtEmail))
                         .addGap(444, 444, 444))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addComponent(sendBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(btnSend, javax.swing.GroupLayout.PREFERRED_SIZE, 151, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(541, 541, 541))))
         );
         layout.setVerticalGroup(
@@ -74,24 +82,39 @@ public class ForgotPassword extends javax.swing.JFrame {
                 .addGap(79, 79, 79)
                 .addComponent(jLabel1)
                 .addGap(53, 53, 53)
-                .addComponent(emailTxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(sendBtn)
+                .addComponent(btnSend)
                 .addContainerGap(406, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void emailTxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailTxtActionPerformed
+    private void txtEmailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEmailActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_emailTxtActionPerformed
+    }//GEN-LAST:event_txtEmailActionPerformed
 
-    private void sendBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_sendBtnActionPerformed
-        // TODO add your handling code here:
-        dao.EmailSender.main(emailTxt.getText());
-        JOptionPane.showMessageDialog(null, "If the email you entered is valid, is should be sent by now");
-    }//GEN-LAST:event_sendBtnActionPerformed
+    private void btnSendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendActionPerformed
+            String code = CodeGenerator.generateCode();
+            String email = txtEmail.getText();
+            UserDao.setResetCode(email, code);
+            boolean updated = (dao.EmailSender.send(email, code));
+            JOptionPane.showMessageDialog(null, "The email has been sent!");
+            new VerifyCode(email).setVisible(true);
+            this.dispose(); // closes the current ForgotPassword window
+    }//GEN-LAST:event_btnSendActionPerformed
+
+    private void txtEmailKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEmailKeyReleased
+        String email  = txtEmail.getText();
+        
+        if(!email.equals("") && email.matches("^[a-zA-Z0-9]+[@]+[a-zA-Z0-9]+[.]+[a-zA-Z0-9]+$")){
+            btnSend.setEnabled(true);
+        }
+        else{
+            btnSend.setEnabled(false);
+        }
+    }//GEN-LAST:event_txtEmailKeyReleased
 
     /**
      * @param args the command line arguments
@@ -129,8 +152,8 @@ public class ForgotPassword extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JTextField emailTxt;
+    private javax.swing.JButton btnSend;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JButton sendBtn;
+    private javax.swing.JTextField txtEmail;
     // End of variables declaration//GEN-END:variables
 }

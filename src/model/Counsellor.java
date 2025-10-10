@@ -8,44 +8,44 @@ package model;
  *
  * @author Admin
  */
-public class User {
+public class Counsellor {
     private String name;
-    private String age;
-    private String maritalStatus;
-    private String studentNumber;
+    private String specialty;
+    private String license;
+    private String availability;
     private String mobileNumber;
     private String email;
     private String username;
-    private String password;
+    private String password;   
     
-    public User() {}
-
-    public User(String name, String age, String maritalStatus, String studentNumber, String mobileNumber, String email, String username, String password){
+    public Counsellor() {}
+    
+    public Counsellor(String name, String specialty, String license, String availability, String mobileNumber, String email, String username, String password){
         this.name = name;
-        this.age = age;
-        this.maritalStatus = maritalStatus;
-        this.studentNumber = studentNumber;
+        this.specialty = specialty;
+        this.license = license;
+        this.availability = availability;
         this.mobileNumber = mobileNumber;
         this.email = email;
         this.username = username;
-        this.password = password;   
+        this.password = password;
     }
-
+    
     public String getName() {return name;}
 
     public void setName(String name) {this.name = name;}
 
-    public String getAge() {return age;}
+    public String getSpecialty() {return specialty;}
 
-    public void setAge(String age) {this.age = age;}
-    
-    public String getmaritalStatus() {return maritalStatus;}
+    public void setSpecialty(String specialty) {this.specialty = specialty;}
 
-    public void setmaritalStatus(String maritalStatus) {this.maritalStatus = maritalStatus;}
-    
-    public String getStudentNumber() {return studentNumber;}
+    public String getLicense() {return license;}
 
-    public void setStudentNumber(String studentNumber) {this.studentNumber = studentNumber;}
+    public void setLicense(String license) {this.license = license;}
+
+    public String getAvailability() {return availability;}
+
+    public void setAvailability(String availability) {this.availability = availability;}
 
     public String getMobileNumber() {return mobileNumber;}
 
@@ -62,5 +62,5 @@ public class User {
     public String getPassword() {return password;}
 
     public void setPassword(String password) {this.password = password;}
-    
+      
 }
