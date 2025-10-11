@@ -154,19 +154,18 @@ public class Login extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        // TODO add your handling code here:
         String username = txtUsername.getText();
         String password = txtPassword.getText();
         
-    if (UserDao.login(username, password)) {
-        JOptionPane.showMessageDialog(this, "Login successful!");
+        if (UserDao.Userlogin(username, password)) {
+            JOptionPane.showMessageDialog(this, "Login successful!");
         
-        new Home().setVisible(true);
-        this.dispose();
-    }   
-    else {
-        JOptionPane.showMessageDialog(this, "Invalid username or password");
-    }        
+            new Home().setVisible(true);
+            this.dispose();
+        }   
+        else {
+            JOptionPane.showMessageDialog(this, "Invalid username or password");
+        }        
     
     }//GEN-LAST:event_btnLoginActionPerformed
 

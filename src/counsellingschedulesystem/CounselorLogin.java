@@ -4,6 +4,9 @@
  */
 package counsellingschedulesystem;
 
+import dao.UserDao;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Admin
@@ -15,6 +18,18 @@ public class CounselorLogin extends javax.swing.JFrame {
      */
     public CounselorLogin() {
         initComponents();
+        btnLogin.setEnabled(false);
+    }
+    public void validateFields(){
+        String username = txtUsername.getText();
+        String password = txtPassword.getText();
+        
+        if(!username.equals("") && username.length() > 3 && !password.equals("") && password.length() > 7){
+            btnLogin.setEnabled(true);
+        }
+        else{
+            btnLogin.setEnabled(false);
+        }
     }
 
     /**
@@ -29,9 +44,9 @@ public class CounselorLogin extends javax.swing.JFrame {
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
+        btnLogin = new javax.swing.JButton();
+        btnForgotPassword = new javax.swing.JButton();
+        btnSignup = new javax.swing.JButton();
         txtUsername = new javax.swing.JTextField();
         txtPassword = new javax.swing.JPasswordField();
 
@@ -44,11 +59,33 @@ public class CounselorLogin extends javax.swing.JFrame {
 
         jLabel3.setText("Password");
 
-        jButton1.setText("Log in");
+        btnLogin.setText("Log in");
+        btnLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnLoginActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Forgot Password ?");
+        btnForgotPassword.setText("Forgot Password ?");
+        btnForgotPassword.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnForgotPasswordActionPerformed(evt);
+            }
+        });
 
-        jButton3.setText("Sign up");
+        btnSignup.setText("Sign up");
+
+        txtUsername.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtUsernameKeyReleased(evt);
+            }
+        });
+
+        txtPassword.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                txtPasswordKeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -70,12 +107,12 @@ public class CounselorLogin extends javax.swing.JFrame {
                                 .addComponent(jLabel3)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jButton2)
+                                    .addComponent(btnForgotPassword)
                                     .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(layout.createSequentialGroup()
-                                            .addComponent(jButton1)
+                                            .addComponent(btnLogin)
                                             .addGap(148, 148, 148)
-                                            .addComponent(jButton3))
+                                            .addComponent(btnSignup))
                                         .addComponent(txtPassword)))))))
                 .addContainerGap(429, Short.MAX_VALUE))
         );
@@ -94,15 +131,42 @@ public class CounselorLogin extends javax.swing.JFrame {
                     .addComponent(txtPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jButton3)
-                    .addComponent(jButton1))
+                    .addComponent(btnSignup)
+                    .addComponent(btnLogin))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jButton2)
+                .addComponent(btnForgotPassword)
                 .addContainerGap(437, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
+        String username = txtUsername.getText();
+        String password = txtPassword.getText();
+        
+        if (UserDao.Counsellorlogin(username, password)) {
+            JOptionPane.showMessageDialog(this, "Login successful!");
+        
+            new CounsellorHome().setVisible(true);
+            this.dispose();
+        }   
+        else {
+            JOptionPane.showMessageDialog(this, "Invalid username or password");
+        }
+    }//GEN-LAST:event_btnLoginActionPerformed
+
+    private void txtUsernameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsernameKeyReleased
+        validateFields();
+    }//GEN-LAST:event_txtUsernameKeyReleased
+
+    private void txtPasswordKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtPasswordKeyReleased
+        validateFields();
+    }//GEN-LAST:event_txtPasswordKeyReleased
+
+    private void btnForgotPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnForgotPasswordActionPerformed
+        
+    }//GEN-LAST:event_btnForgotPasswordActionPerformed
 
     /**
      * @param args the command line arguments
@@ -140,9 +204,9 @@ public class CounselorLogin extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
+    private javax.swing.JButton btnForgotPassword;
+    private javax.swing.JButton btnLogin;
+    private javax.swing.JButton btnSignup;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

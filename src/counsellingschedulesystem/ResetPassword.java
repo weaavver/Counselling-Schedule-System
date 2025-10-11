@@ -145,7 +145,7 @@ private String email;
 
     private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
         String newPassword = txtConfirmNewPassword.getText();
-        Boolean updated = dao.UserDao.updatePassword(email, newPassword);
+        Boolean updated = dao.UserDao.updateUserPassword(email, newPassword);
         
         if(updated){
             JOptionPane.showMessageDialog(null, "The password has been successfully updated! Please sign in.");            

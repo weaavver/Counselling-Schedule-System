@@ -40,9 +40,28 @@ public class UserDao {
     
     }
     
+        public static boolean Userlogin(String username, String password) {
+            String sql = "SELECT 1 FROM UsersTbl WHERE username=? AND password=?";
+    
+            try (Connection con = ConnectionProvider.getCon();
+                PreparedStatement ps = con.prepareStatement(sql)) {
+
+                ps.setString(1, username);
+                ps.setString(2, password);
+
+                try (ResultSet rs = ps.executeQuery()) {
+                return rs.next(); // true if a record exists
+                    }
+            } 
+            catch (Exception e) {
+                JOptionPane.showMessageDialog(null, e, "Error", JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
+        }    
+    
         public static void registerCounsellor(Counsellor counsellor){
-            String sql = "INSERT INTO counsellors(name,specialty,license,availability,mobileNumber,email,username,password)"
-                + "VALUES (?,?,?,?,?,?)";
+            String sql = "INSERT INTO counsellorstbl(name,specialty,license,availability,mobileNumber,email,username,password)"
+                + "VALUES (?,?,?,?,?,?,?,?)";
             try (Connection con = ConnectionProvider.getCon();
                 PreparedStatement ps = con.prepareStatement(sql)) {
 
@@ -65,8 +84,8 @@ public class UserDao {
     
         }
     
-        public static boolean login(String username, String password) {
-            String sql = "SELECT 1 FROM UsersTbl WHERE username=? AND password=?";
+        public static boolean Counsellorlogin(String username, String password) {
+            String sql = "SELECT 1 FROM CounsellorsTbl WHERE username=? AND password=?";
     
             try (Connection con = ConnectionProvider.getCon();
                 PreparedStatement ps = con.prepareStatement(sql)) {
@@ -82,9 +101,9 @@ public class UserDao {
                 JOptionPane.showMessageDialog(null, e, "Error", JOptionPane.ERROR_MESSAGE);
                 return false;
             }
-        }
+        } 
         
-        public static boolean setResetCode(String email, String code) {
+        public static boolean setUserResetCode(String email, String code) {
             try (Connection con = ConnectionProvider.getCon()) {
                 String query = "UPDATE UsersTbl SET reset_code=?, reset_expiry=? WHERE email=?";
                 PreparedStatement ps = con.prepareStatement(query);
@@ -99,7 +118,7 @@ public class UserDao {
             }
         }
         
-        public static boolean verifyResetCode(String email, String code) {
+        public static boolean verifyUserResetCode(String email, String code) {
             try (Connection con = ConnectionProvider.getCon()) {
                 String query = "SELECT reset_code, reset_expiry FROM UsersTbl WHERE email=?";
                 PreparedStatement ps = con.prepareStatement(query);
@@ -118,7 +137,7 @@ public class UserDao {
         return false;
         }
         
-        public static boolean updatePassword(String email, String newPassword) {
+        public static boolean updateUserPassword(String email, String newPassword) {
             try (Connection con = ConnectionProvider.getCon()) {
                 String query = "UPDATE UsersTbl SET password=?, reset_code=NULL, reset_expiry=NULL WHERE email=?";
                 PreparedStatement ps = con.prepareStatement(query);

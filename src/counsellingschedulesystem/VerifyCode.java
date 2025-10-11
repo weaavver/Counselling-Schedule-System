@@ -104,7 +104,7 @@ private String email;
 
     private void btnVerifyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerifyActionPerformed
         String enteredCode = txtCode.getText();
-        if(dao.UserDao.verifyResetCode(email, enteredCode)){
+        if(dao.UserDao.verifyUserResetCode(email, enteredCode)){
             JOptionPane.showMessageDialog(null, "Code verified! You can now reset your password.");
              new ResetPassword(email).setVisible(true);
              this.dispose();

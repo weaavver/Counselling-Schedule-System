@@ -327,7 +327,6 @@ public class Signup extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSignupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignupActionPerformed
-        // TODO add your handling code here:
         User user = new User();
         user.setName(txtName.getText());
         user.setAge(txtAge.getText());
@@ -385,7 +384,6 @@ public class Signup extends javax.swing.JFrame {
     }//GEN-LAST:event_btnApplyCounselorActionPerformed
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        // TODO add your handling code here:
         new Login().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnLoginActionPerformed

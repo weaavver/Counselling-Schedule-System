@@ -98,7 +98,7 @@ public class ForgotPassword extends javax.swing.JFrame {
     private void btnSendActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSendActionPerformed
             String code = CodeGenerator.generateCode();
             String email = txtEmail.getText();
-            UserDao.setResetCode(email, code);
+            UserDao.setUserResetCode(email, code);
             boolean updated = (dao.EmailSender.send(email, code));
             JOptionPane.showMessageDialog(null, "The email has been sent!");
             new VerifyCode(email).setVisible(true);
