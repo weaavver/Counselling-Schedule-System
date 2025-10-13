@@ -10,6 +10,7 @@ import javax.swing.JOptionPane;
 import java.sql.ResultSet;
 import model.User;
 import model.Counsellor;
+import org.mindrot.jbcrypt.BCrypt;
 
 /**
  *
@@ -40,24 +41,33 @@ public class UserDao {
     
     }
     
-        public static boolean Userlogin(String username, String password) {
-            String sql = "SELECT 1 FROM UsersTbl WHERE username=? AND password=?";
-    
-            try (Connection con = ConnectionProvider.getCon();
-                PreparedStatement ps = con.prepareStatement(sql)) {
+public static boolean UserLogin(String username, String password) {
+    String sql = "SELECT password FROM UsersTbl WHERE username = ?";
 
-                ps.setString(1, username);
-                ps.setString(2, password);
+    try (Connection con = ConnectionProvider.getCon();
+         PreparedStatement ps = con.prepareStatement(sql)) {
 
-                try (ResultSet rs = ps.executeQuery()) {
-                return rs.next(); // true if a record exists
-                    }
-            } 
-            catch (Exception e) {
-                JOptionPane.showMessageDialog(null, e, "Error", JOptionPane.ERROR_MESSAGE);
-                return false;
+        ps.setString(1, username);
+        try (ResultSet rs = ps.executeQuery()) {
+
+            if (rs.next()) {
+                String storedHash = rs.getString("password");
+
+                // ✅ Compare the entered password (unhashed) with the stored bcrypt hash
+                if (BCrypt.checkpw(password, storedHash)) {
+                    return true; // login success
+                } else {
+                    return false; // wrong password
+                }
+            } else {
+                return false; // no such user
             }
-        }    
+        }
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, e, "Error", JOptionPane.ERROR_MESSAGE);
+        return false;
+    }
+}
     
         public static void registerCounsellor(Counsellor counsellor){
             String sql = "INSERT INTO counsellorstbl(name,specialty,license,availability,mobileNumber,email,username,password)"
@@ -84,20 +94,29 @@ public class UserDao {
     
         }
     
-        public static boolean Counsellorlogin(String username, String password) {
-            String sql = "SELECT 1 FROM CounsellorsTbl WHERE username=? AND password=?";
-    
+        public static boolean CounsellorLogin(String username, String password) {
+            String sql = "SELECT password FROM CounsellorsTbl WHERE username = ?";
+
             try (Connection con = ConnectionProvider.getCon();
-                PreparedStatement ps = con.prepareStatement(sql)) {
+            PreparedStatement ps = con.prepareStatement(sql)) {
 
                 ps.setString(1, username);
-                ps.setString(2, password);
+            try (ResultSet rs = ps.executeQuery()) {
 
-                try (ResultSet rs = ps.executeQuery()) {
-                return rs.next(); // true if a record exists
+                if (rs.next()) {
+                    String storedHash = rs.getString("password");
+
+                //Compare the entered password (unhashed) with the stored bcrypt hash
+                    if (BCrypt.checkpw(password, storedHash)) {
+                        return true; // login success
+                    } else {
+                        return false; // wrong password
+                            }
+                    } else {
+                        return false; // no such user
                     }
-            } 
-            catch (Exception e) {
+                }
+            } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e, "Error", JOptionPane.ERROR_MESSAGE);
                 return false;
             }

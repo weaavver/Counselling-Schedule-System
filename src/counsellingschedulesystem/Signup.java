@@ -5,6 +5,7 @@
 package counsellingschedulesystem;
 import dao.UserDao;
 import model.User;
+import org.mindrot.jbcrypt.BCrypt;
 /**
  *
  * @author Admin
@@ -327,6 +328,9 @@ public class Signup extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnSignupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignupActionPerformed
+        String password = txtPassword.getText();
+        String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+
         User user = new User();
         user.setName(txtName.getText());
         user.setAge(txtAge.getText());
@@ -335,7 +339,7 @@ public class Signup extends javax.swing.JFrame {
         user.setMobileNumber(txtMobileNumber.getText());
         user.setEmail(txtEmail.getText());
         user.setUsername(txtUsername.getText());
-        user.setPassword(txtPassword.getText());
+        user.setPassword(hashedPassword);
         
         UserDao.registerUser(user);
         

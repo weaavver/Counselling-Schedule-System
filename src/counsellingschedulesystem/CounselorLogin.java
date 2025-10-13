@@ -74,6 +74,11 @@ public class CounselorLogin extends javax.swing.JFrame {
         });
 
         btnSignup.setText("Sign up");
+        btnSignup.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnSignupActionPerformed(evt);
+            }
+        });
 
         txtUsername.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -141,18 +146,28 @@ public class CounselorLogin extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    int counter = 0;
+    
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         String username = txtUsername.getText();
         String password = txtPassword.getText();
         
-        if (UserDao.Counsellorlogin(username, password)) {
-            JOptionPane.showMessageDialog(this, "Login successful!");
+        if(counter < 3){
+            if (UserDao.CounsellorLogin(username, password)) {
+                JOptionPane.showMessageDialog(this, "Login successful!");
         
-            new CounsellorHome().setVisible(true);
+                new CounsellorHome().setVisible(true);
+                this.dispose();
+            }   
+            else {
+                counter++;
+                txtPassword.setText("");
+                JOptionPane.showMessageDialog(this, "Invalid username or password");
+            }
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "FUCK OFF NIGGER!!");
             this.dispose();
-        }   
-        else {
-            JOptionPane.showMessageDialog(this, "Invalid username or password");
         }
     }//GEN-LAST:event_btnLoginActionPerformed
 
@@ -167,6 +182,11 @@ public class CounselorLogin extends javax.swing.JFrame {
     private void btnForgotPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnForgotPasswordActionPerformed
         
     }//GEN-LAST:event_btnForgotPasswordActionPerformed
+
+    private void btnSignupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignupActionPerformed
+        new CounselorSignup().setVisible(true); //typo
+        this.dispose();
+    }//GEN-LAST:event_btnSignupActionPerformed
 
     /**
      * @param args the command line arguments

@@ -5,6 +5,7 @@
 package counsellingschedulesystem;
 import dao.UserDao;
 import javax.swing.JOptionPane;
+import org.mindrot.jbcrypt.BCrypt;
 /**
  *
  * @author Admin
@@ -153,20 +154,29 @@ public class Login extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    int counter = 0;
+    
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         String username = txtUsername.getText();
         String password = txtPassword.getText();
         
-        if (UserDao.Userlogin(username, password)) {
-            JOptionPane.showMessageDialog(this, "Login successful!");
+        if (counter < 3){
+            if (UserDao.UserLogin(username, password)) {
+                JOptionPane.showMessageDialog(this, "Login successful!");
         
-            new Home().setVisible(true);
+                new Home().setVisible(true);
+                this.dispose();
+            }   
+            else {
+                counter++;
+                txtPassword.setText("");
+                JOptionPane.showMessageDialog(this, "Invalid username or password");
+            } 
+        }
+        else{
+            JOptionPane.showMessageDialog(this, "FUCK OFF NIGGER!!");
             this.dispose();
-        }   
-        else {
-            JOptionPane.showMessageDialog(this, "Invalid username or password");
-        }        
-    
+        }
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void txtUsernameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsernameKeyReleased
@@ -192,7 +202,8 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_btnForgotPasswordActionPerformed
 
     private void btnSignupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignupActionPerformed
-        // TODO add your handling code here:
+            new Signup().setVisible(true);
+            this.dispose();
     }//GEN-LAST:event_btnSignupActionPerformed
 
     /**

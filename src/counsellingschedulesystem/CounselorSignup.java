@@ -5,6 +5,7 @@
 package counsellingschedulesystem;
 import dao.UserDao;
 import model.Counsellor;
+import org.mindrot.jbcrypt.BCrypt;
 /**
  *
  * @author Admin
@@ -82,6 +83,7 @@ public class CounselorSignup extends javax.swing.JFrame {
         btnClear = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         txtUsername = new javax.swing.JTextField();
+        btnUser = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -186,6 +188,13 @@ public class CounselorSignup extends javax.swing.JFrame {
             }
         });
 
+        btnUser.setText("Are you a student ?");
+        btnUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnUserActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -198,13 +207,15 @@ public class CounselorSignup extends javax.swing.JFrame {
                             .addComponent(jLabel10)
                             .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                .addComponent(btnClear)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addGroup(layout.createSequentialGroup()
+                                .addComponent(txtConfirmPassword)
+                                .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addComponent(btnConfirm)
-                                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(btnLogin))
-                                    .addComponent(txtConfirmPassword))))
+                                        .addComponent(btnClear))
+                                    .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(btnLogin)
+                                        .addComponent(btnUser)))))
                         .addGroup(layout.createSequentialGroup()
                             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                 .addComponent(jLabel8)
@@ -280,7 +291,9 @@ public class CounselorSignup extends javax.swing.JFrame {
                     .addComponent(btnConfirm)
                     .addComponent(btnLogin))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(btnClear)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnClear)
+                    .addComponent(btnUser))
                 .addContainerGap(155, Short.MAX_VALUE))
         );
 
@@ -292,6 +305,9 @@ public class CounselorSignup extends javax.swing.JFrame {
     }//GEN-LAST:event_txtNameActionPerformed
 
     private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
+        String password = txtPassword.getText();
+        String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+        
         Counsellor counsellor = new Counsellor();
         counsellor.setName(txtName.getText());
         counsellor.setSpecialty(txtSpecialty.getText());
@@ -300,7 +316,7 @@ public class CounselorSignup extends javax.swing.JFrame {
         counsellor.setMobileNumber(txtMobileNumber.getText());
         counsellor.setEmail(txtEmail.getText());
         counsellor.setUsername(txtUsername.getText());
-        counsellor.setPassword(txtPassword.getText());
+        counsellor.setPassword(hashedPassword);
         
         UserDao.registerCounsellor(counsellor);
         
@@ -352,6 +368,11 @@ public class CounselorSignup extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnLoginActionPerformed
 
+    private void btnUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserActionPerformed
+        new Login().setVisible(true); //typo
+        this.dispose();
+    }//GEN-LAST:event_btnUserActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -391,6 +412,7 @@ public class CounselorSignup extends javax.swing.JFrame {
     private javax.swing.JButton btnClear;
     private javax.swing.JButton btnConfirm;
     private javax.swing.JButton btnLogin;
+    private javax.swing.JButton btnUser;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
