@@ -5,7 +5,7 @@
             <url>src/counsellingschedulesystem/Signup.java</url>
             <bookmark id="1">
                 <name/>
-                <line>14</line>
+                <line>15</line>
                 <key/>
             </bookmark>
         </file>
@@ -14,6 +14,8 @@
         <group>
             <file>file:/C:/Users/Admin/Documents/NetBeansProjects/CounsellingScheduleSystem/src/counsellingschedulesystem/Login.java</file>
             <file>file:/C:/Users/Admin/Documents/NetBeansProjects/CounsellingScheduleSystem/src/counsellingschedulesystem/CounselorLogin.java</file>
+            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/CounsellingScheduleSystem/src/counsellingschedulesystem/Signup.java</file>
+            <file>file:/C:/Users/Admin/Documents/NetBeansProjects/CounsellingScheduleSystem/src/counsellingschedulesystem/CounselorSignup.java</file>
         </group>
     </open-files>
 </project-private>
