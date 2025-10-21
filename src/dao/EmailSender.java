@@ -32,7 +32,7 @@ public class EmailSender {
             message.setFrom(new InternetAddress(from));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail));
             message.setSubject("Password Reset Confirmation");
-            message.setText("The code is "+code+"\n Do not share this with anyone FUCKING BITCH ASS NIGGER.");
+            message.setText("The code is "+code+"\n Do not share this with anyone :).");
             
             // Send it
             Transport.send(message);

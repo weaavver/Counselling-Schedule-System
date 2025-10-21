@@ -10,15 +10,15 @@ import javax.swing.JOptionPane;
  * @author Admin
  */
 
-public class VerifyCode extends javax.swing.JFrame {
+public class VerifyCounsellorCode extends javax.swing.JFrame {
 private String email;
     /**
-     * Creates new form VerifyCode
+     * Creates new form VerifyCounsellorCode
      */
-    public VerifyCode(String email) {
+    public VerifyCounsellorCode(String email) {
         initComponents();
-        this.email = email; // Stores the email from previous step
-        
+        this.email = email;
+
         btnVerify.setEnabled(false);
     }
 
@@ -60,11 +60,6 @@ private String email;
                 btnVerifyActionPerformed(evt);
             }
         });
-        btnVerify.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                btnVerifyKeyReleased(evt);
-            }
-        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -73,54 +68,51 @@ private String email;
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(479, 479, 479)
+                        .addGap(492, 492, 492)
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(367, 367, 367)
+                        .addGap(356, 356, 356)
                         .addComponent(jLabel2)
-                        .addGap(18, 18, 18)
-                        .addComponent(txtCode, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(587, 587, 587)
-                        .addComponent(btnVerify)))
-                .addContainerGap(442, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(txtCode, javax.swing.GroupLayout.PREFERRED_SIZE, 393, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(416, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(0, 0, Short.MAX_VALUE)
+                .addComponent(btnVerify)
+                .addGap(589, 589, 589))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(33, 33, 33)
+                .addGap(24, 24, 24)
                 .addComponent(jLabel1)
-                .addGap(51, 51, 51)
+                .addGap(41, 41, 41)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txtCode, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(btnVerify)
-                .addContainerGap(473, Short.MAX_VALUE))
+                .addContainerGap(492, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void txtCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodeActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtCodeActionPerformed
+
     private void btnVerifyActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVerifyActionPerformed
         String enteredCode = txtCode.getText();
-        if(dao.UserDao.verifyUserResetCode(email, enteredCode)){
+        if(dao.UserDao.verifyCounsellorResetCode(email, enteredCode)){
             JOptionPane.showMessageDialog(null, "Code verified! You can now reset your password.");
-             new ResetPassword(email).setVisible(true);
+             new CounsellorResetPassword(email).setVisible(true);
              this.dispose();
         }
         else{
             JOptionPane.showMessageDialog(null, "Invalid or expired code!");
         }
     }//GEN-LAST:event_btnVerifyActionPerformed
-
-    private void btnVerifyKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_btnVerifyKeyReleased
-
-    }//GEN-LAST:event_btnVerifyKeyReleased
-
-    private void txtCodeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtCodeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtCodeActionPerformed
 
     private void txtCodeKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtCodeKeyReleased
         if(!txtCode.getText().equals("") && txtCode.getText().length() == 6){
@@ -131,6 +123,7 @@ private String email;
         }
     }//GEN-LAST:event_txtCodeKeyReleased
 
+    
     /**
      * @param args the command line arguments
      */
@@ -148,20 +141,19 @@ private String email;
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(VerifyCode.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VerifyCounsellorCode.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(VerifyCode.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VerifyCounsellorCode.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(VerifyCode.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VerifyCounsellorCode.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(VerifyCode.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(VerifyCounsellorCode.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                //new VerifyCode(email).setVisible(true);
             }
         });
     }

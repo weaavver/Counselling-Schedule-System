@@ -147,7 +147,8 @@ public class CounselorLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_txtPasswordKeyReleased
 
     private void btnForgotPasswordActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnForgotPasswordActionPerformed
-        
+        new CounsellorForgotPassword().setVisible(true);
+        this.dispose();
     }//GEN-LAST:event_btnForgotPasswordActionPerformed
 
     private void btnSignupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignupActionPerformed

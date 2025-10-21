@@ -170,4 +170,52 @@ public static boolean UserLogin(String username, String password) {
             }
         }
         
+        public static boolean setCounsellorResetCode(String email, String code) {
+            try (Connection con = ConnectionProvider.getCon()) {
+                String query = "UPDATE counsellorsTbl SET reset_code=?, reset_expiry=? WHERE email=?";
+                PreparedStatement ps = con.prepareStatement(query);
+                ps.setString(1, code);
+                ps.setTimestamp(2, new java.sql.Timestamp(System.currentTimeMillis() + (15 * 60 * 1000))); // 15 mins expiry
+                ps.setString(3, email);
+                return ps.executeUpdate() > 0;
+            } 
+            catch (Exception e) {
+                e.printStackTrace();
+                return false;
+            }
+        }
+        
+        public static boolean verifyCounsellorResetCode(String email, String code) {
+            try (Connection con = ConnectionProvider.getCon()) {
+                String query = "SELECT reset_code, reset_expiry FROM counsellorsTbl WHERE email=?";
+                PreparedStatement ps = con.prepareStatement(query);
+                ps.setString(1, email);
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()) {
+                    String dbCode = rs.getString("reset_code");
+                    Timestamp expiry = rs.getTimestamp("reset_expiry");
+
+                    return dbCode != null && dbCode.equals(code) && expiry.after(new java.sql.Timestamp(System.currentTimeMillis()));
+                }
+            } 
+            catch (Exception e) {
+                e.printStackTrace();
+            }
+        return false;
+        }
+        
+        public static boolean updateCounsellorPassword(String email, String newPassword) {
+            try (Connection con = ConnectionProvider.getCon()) {
+                String query = "UPDATE counsellorsTbl SET password=?, reset_code=NULL, reset_expiry=NULL WHERE email=?";
+                PreparedStatement ps = con.prepareStatement(query);
+                ps.setString(1, newPassword);
+                ps.setString(2, email);
+                return ps.executeUpdate() > 0;
+            } 
+            catch (Exception e) {
+                e.printStackTrace();
+            return false;
+            }
+        }        
+        
 }
