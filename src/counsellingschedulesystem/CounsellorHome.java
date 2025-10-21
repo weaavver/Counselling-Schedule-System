@@ -3,7 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package counsellingschedulesystem;
-
+import dao.AppointmentAndRequestsDao;
+import javax.swing.table.DefaultTableModel;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Admin
@@ -13,10 +16,35 @@ public class CounsellorHome extends javax.swing.JFrame {
     /**
      * Creates new form CounsellorHome
      */
-    public CounsellorHome() {
+    
+    
+    public CounsellorHome(String name) {
         initComponents();
+        loadTableData();
+        lblGreet.setText("Hello, "+ name +"!");
     }
 
+    private void loadTableData() {
+    DefaultTableModel model = (DefaultTableModel) tblRequests.getModel();
+    model.setRowCount(0); // clear old data
+
+    try {
+        ResultSet rs = AppointmentAndRequestsDao.getAllPendingRequests();
+        while (rs.next()) {
+            Object[] row = {
+                rs.getInt("requestID"),
+                rs.getInt("userID"),
+                rs.getString("classification"),
+                rs.getString("problemSummary"),
+                rs.getString("status"),
+                rs.getTimestamp("requestDate")
+            };
+            model.addRow(row);
+        }
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, e);
+    }
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -26,28 +54,47 @@ public class CounsellorHome extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel1 = new javax.swing.JLabel();
+        lblGreet = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblRequests = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
-        jLabel1.setText("Welcome Back Counsellor !");
+        lblGreet.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        lblGreet.setText("$GREET$");
+
+        tblRequests.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
+            },
+            new String [] {
+                "Title 1", "Title 2", "Title 3", "Title 4"
+            }
+        ));
+        jScrollPane1.setViewportView(tblRequests);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(364, 364, 364)
-                .addComponent(jLabel1)
-                .addContainerGap(433, Short.MAX_VALUE))
+                .addGap(85, 85, 85)
+                .addComponent(lblGreet)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 617, Short.MAX_VALUE)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(23, 23, 23))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(31, 31, 31)
-                .addComponent(jLabel1)
-                .addContainerGap(599, Short.MAX_VALUE))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(lblGreet))
+                .addContainerGap(220, Short.MAX_VALUE))
         );
 
         pack();
@@ -83,12 +130,15 @@ public class CounsellorHome extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new CounsellorHome().setVisible(true);
             }
         });
     }
+    
+    
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JLabel lblGreet;
+    private javax.swing.JTable tblRequests;
     // End of variables declaration//GEN-END:variables
 }

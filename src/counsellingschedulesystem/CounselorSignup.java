@@ -16,15 +16,17 @@ public class CounselorSignup extends javax.swing.JFrame {
     /**
      * Creates new form CounselorSignup
      */
+    String[] items = {"Financial Counselling", "Academic Advise", "Mental Health", "Relationship Issues"};
     public CounselorSignup() {
         initComponents();
+        cmboSpecialization.setModel(new javax.swing.DefaultComboBoxModel<>(items));
         setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLocationRelativeTo(null);        
         btnConfirm.setEnabled(false);
     }
         public void Clear()  {
         txtName.setText("");
-        txtSpecialty.setText("");
+        cmboSpecialization.setSelectedIndex(0);
         txtLicense.setText("");
         txtAvailability.setText("");
         txtMobileNumber.setText("");        
@@ -37,7 +39,7 @@ public class CounselorSignup extends javax.swing.JFrame {
     }
         public void validateFields(){
         String name  = txtName.getText();
-        String specialty  = txtSpecialty.getText();
+        String specialty  = cmboSpecialization.getSelectedItem().toString();
         String license = txtLicense.getText();
         String gender  = txtAvailability.getText();        
         String mobileNumber = txtMobileNumber.getText();
@@ -75,7 +77,6 @@ public class CounselorSignup extends javax.swing.JFrame {
         txtName = new javax.swing.JTextField();
         txtMobileNumber = new javax.swing.JTextField();
         txtLicense = new javax.swing.JTextField();
-        txtSpecialty = new javax.swing.JTextField();
         txtAvailability = new javax.swing.JTextField();
         txtEmail = new javax.swing.JTextField();
         jLabel10 = new javax.swing.JLabel();
@@ -86,6 +87,7 @@ public class CounselorSignup extends javax.swing.JFrame {
         btnClear = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
         txtUsername = new javax.swing.JTextField();
+        cmboSpecialization = new javax.swing.JComboBox<>();
         btnUser = new javax.swing.JButton();
         jLabel11 = new javax.swing.JLabel();
 
@@ -105,7 +107,7 @@ public class CounselorSignup extends javax.swing.JFrame {
         jLabel5.setText("Availability");
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(431, 229, -1, -1));
 
-        jLabel6.setText("Specialty");
+        jLabel6.setText("Specialization");
         getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(431, 149, -1, -1));
 
         jLabel7.setText("Email");
@@ -142,13 +144,6 @@ public class CounselorSignup extends javax.swing.JFrame {
             }
         });
         getContentPane().add(txtLicense, new org.netbeans.lib.awtextra.AbsoluteConstraints(542, 186, 308, -1));
-
-        txtSpecialty.addKeyListener(new java.awt.event.KeyAdapter() {
-            public void keyReleased(java.awt.event.KeyEvent evt) {
-                txtSpecialtyKeyReleased(evt);
-            }
-        });
-        getContentPane().add(txtSpecialty, new org.netbeans.lib.awtextra.AbsoluteConstraints(542, 146, 308, -1));
 
         txtAvailability.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
@@ -215,6 +210,14 @@ public class CounselorSignup extends javax.swing.JFrame {
         });
         getContentPane().add(txtUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(542, 346, 308, -1));
 
+        cmboSpecialization.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmboSpecialization.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmboSpecializationActionPerformed(evt);
+            }
+        });
+        getContentPane().add(cmboSpecialization, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 150, 310, -1));
+
         btnUser.setText("Are you a student ?");
         btnUser.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -224,7 +227,7 @@ public class CounselorSignup extends javax.swing.JFrame {
         getContentPane().add(btnUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(689, 501, -1, -1));
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Sign up counselor 1.jpg"))); // NOI18N
-        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(-980, -630, -1, -1));
+        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(-1110, -720, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -239,7 +242,7 @@ public class CounselorSignup extends javax.swing.JFrame {
         
         Counsellor counsellor = new Counsellor();
         counsellor.setName(txtName.getText());
-        counsellor.setSpecialty(txtSpecialty.getText());
+        counsellor.setSpecialty(cmboSpecialization.getSelectedItem().toString());
         counsellor.setLicense(txtLicense.getText());
         counsellor.setAvailability(txtAvailability.getText());
         counsellor.setMobileNumber(txtMobileNumber.getText());
@@ -259,10 +262,6 @@ public class CounselorSignup extends javax.swing.JFrame {
     private void txtNameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtNameKeyReleased
         validateFields();
     }//GEN-LAST:event_txtNameKeyReleased
-
-    private void txtSpecialtyKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtSpecialtyKeyReleased
-        validateFields();
-    }//GEN-LAST:event_txtSpecialtyKeyReleased
 
     private void txtLicenseKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtLicenseKeyReleased
         validateFields();
@@ -301,6 +300,10 @@ public class CounselorSignup extends javax.swing.JFrame {
         new Login().setVisible(true); //typo
         this.dispose();
     }//GEN-LAST:event_btnUserActionPerformed
+
+    private void cmboSpecializationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmboSpecializationActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cmboSpecializationActionPerformed
 
     /**
      * @param args the command line arguments
@@ -342,6 +345,7 @@ public class CounselorSignup extends javax.swing.JFrame {
     private javax.swing.JButton btnConfirm;
     private javax.swing.JButton btnLogin;
     private javax.swing.JButton btnUser;
+    private javax.swing.JComboBox<String> cmboSpecialization;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -360,7 +364,6 @@ public class CounselorSignup extends javax.swing.JFrame {
     private javax.swing.JTextField txtMobileNumber;
     private javax.swing.JTextField txtName;
     private javax.swing.JPasswordField txtPassword;
-    private javax.swing.JTextField txtSpecialty;
     private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
 }

@@ -124,10 +124,11 @@ public class Login extends javax.swing.JFrame {
         String password = txtPassword.getText();
         
         if (counter < 3){
-            if (UserDao.UserLogin(username, password)) {
+            Integer currentUserID = UserDao.UserLogin(username, password);
+            if (currentUserID != null) {
                 JOptionPane.showMessageDialog(this, "Login successful!");
         
-                new Home().setVisible(true);
+                new Home(username, currentUserID).setVisible(true);
                 this.dispose();
             }   
             else {
@@ -137,7 +138,7 @@ public class Login extends javax.swing.JFrame {
             } 
         }
         else{
-            JOptionPane.showMessageDialog(this, "You are kinda sus!!");
+            JOptionPane.showMessageDialog(this, "Too many failed attempts!");
             this.dispose();
         }
     }//GEN-LAST:event_btnLoginActionPerformed

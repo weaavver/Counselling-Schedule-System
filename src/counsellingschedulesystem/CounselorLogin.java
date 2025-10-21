@@ -123,7 +123,7 @@ public class CounselorLogin extends javax.swing.JFrame {
             if (UserDao.CounsellorLogin(username, password)) {
                 JOptionPane.showMessageDialog(this, "Login successful!");
         
-                new CounsellorHome().setVisible(true);
+                new CounsellorHome(username).setVisible(true);
                 this.dispose();
             }   
             else {
@@ -133,7 +133,7 @@ public class CounselorLogin extends javax.swing.JFrame {
             }
         }
         else{
-            JOptionPane.showMessageDialog(this, "You are kinda sus!!");
+            JOptionPane.showMessageDialog(this, "Too many failed attempts!");
             this.dispose();
         }
     }//GEN-LAST:event_btnLoginActionPerformed

@@ -41,8 +41,8 @@ public class UserDao {
     
     }
     
-public static boolean UserLogin(String username, String password) {
-    String sql = "SELECT password FROM UsersTbl WHERE username = ?";
+public static Integer UserLogin(String username, String password) {
+    String sql = "SELECT ID, password FROM UsersTbl WHERE username = ?";
 
     try (Connection con = ConnectionProvider.getCon();
          PreparedStatement ps = con.prepareStatement(sql)) {
@@ -51,21 +51,22 @@ public static boolean UserLogin(String username, String password) {
         try (ResultSet rs = ps.executeQuery()) {
 
             if (rs.next()) {
+                int userID = rs.getInt("ID");
                 String storedHash = rs.getString("password");
 
                 // ✅ Compare the entered password (unhashed) with the stored bcrypt hash
                 if (BCrypt.checkpw(password, storedHash)) {
-                    return true; // login success
+                    return userID; // login success
                 } else {
-                    return false; // wrong password
+                    return null; // wrong password
                 }
             } else {
-                return false; // no such user
+                return null; // no such user
             }
         }
     } catch (Exception e) {
         JOptionPane.showMessageDialog(null, e, "Error", JOptionPane.ERROR_MESSAGE);
-        return false;
+        return null;
     }
 }
     

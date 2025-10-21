@@ -3,20 +3,25 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package counsellingschedulesystem;
-
+import dao.AppointmentAndRequestsDao;
+import model.Request;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Admin
  */
 public class Home extends javax.swing.JFrame {
-
+private String name;
     /**
      * Creates new form Home
      */
-    
-    public Home() {
+    String[] items = {"Financial Counselling", "Academic Advise", "Mental Health", "Relationship Issues"};
+    private Integer currentUserID;
+    public Home(String name, Integer currentUserID) {
         initComponents();
-        
+        this.currentUserID = currentUserID;
+        cmbClassification.setModel(new javax.swing.DefaultComboBoxModel<>(items));        
+        lblGreet.setText("Hello, "+ name +"!");
     }
 
     /**
@@ -30,9 +35,13 @@ public class Home extends javax.swing.JFrame {
 
         jLabel1 = new javax.swing.JLabel();
         lblGreet = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        txtPending = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
+        btnSubmit = new javax.swing.JButton();
+        btnClear = new javax.swing.JButton();
+        cmbClassification = new javax.swing.JComboBox<>();
+        txtProblemSummary = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -40,18 +49,35 @@ public class Home extends javax.swing.JFrame {
         jLabel1.setText("HOME PAGE");
 
         lblGreet.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        lblGreet.setText("Welcome %USER%");
+        lblGreet.setText("Welcome");
 
-        jLabel3.setText("Pending Counselling");
+        jLabel2.setText("Apply for Counseling");
 
-        txtPending.setText("None");
-        txtPending.addActionListener(new java.awt.event.ActionListener() {
+        btnSubmit.setText("Submit");
+        btnSubmit.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtPendingActionPerformed(evt);
+                btnSubmitActionPerformed(evt);
             }
         });
 
-        jLabel2.setText("Apply for Counseling");
+        btnClear.setText("Clear");
+
+        cmbClassification.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        cmbClassification.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cmbClassificationActionPerformed(evt);
+            }
+        });
+
+        txtProblemSummary.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtProblemSummaryActionPerformed(evt);
+            }
+        });
+
+        jLabel4.setText("Classification");
+
+        jLabel5.setText("Problem");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -60,20 +86,32 @@ public class Home extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(60, 60, 60)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2)
+                                .addGap(0, 0, Short.MAX_VALUE))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(lblGreet)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addContainerGap(520, Short.MAX_VALUE)
                         .addComponent(jLabel1)
-                        .addGap(174, 174, 174))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(60, 60, 60)
-                        .addComponent(lblGreet)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(jLabel3)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(txtPending, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(182, 182, 182))
+                        .addGap(174, 174, 174)))
+                .addGap(349, 349, 349))
             .addGroup(layout.createSequentialGroup()
-                .addGap(135, 135, 135)
-                .addComponent(jLabel2)
+                .addGap(35, 35, 35)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5))
+                .addGap(26, 26, 26)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(cmbClassification, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtProblemSummary, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(btnSubmit)
+                        .addGap(18, 18, 18)
+                        .addComponent(btnClear)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -82,21 +120,44 @@ public class Home extends javax.swing.JFrame {
                 .addGap(15, 15, 15)
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(lblGreet)
-                    .addComponent(jLabel3)
-                    .addComponent(txtPending, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(51, 51, 51)
+                .addComponent(lblGreet)
+                .addGap(59, 59, 59)
                 .addComponent(jLabel2)
-                .addContainerGap(510, Short.MAX_VALUE))
+                .addGap(56, 56, 56)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(cmbClassification, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txtProblemSummary, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel5))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(btnClear)
+                    .addComponent(btnSubmit))
+                .addContainerGap(169, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtPendingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPendingActionPerformed
+    private void cmbClassificationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cmbClassificationActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtPendingActionPerformed
+    }//GEN-LAST:event_cmbClassificationActionPerformed
+
+    private void txtProblemSummaryActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtProblemSummaryActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtProblemSummaryActionPerformed
+
+    private void btnSubmitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSubmitActionPerformed
+        Request request = new Request();
+        request.setID(Integer.valueOf(currentUserID));
+        request.setClassification(cmbClassification.getSelectedItem().toString());
+        request.setProblemSummary(txtProblemSummary.getText());
+        AppointmentAndRequestsDao.sendRequestAppointment(request);
+        
+        JOptionPane.showMessageDialog(null, "Request sent successfully!");
+    }//GEN-LAST:event_btnSubmitActionPerformed
 
     /**
      * @param args the command line arguments
@@ -128,16 +189,19 @@ public class Home extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Home().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnClear;
+    private javax.swing.JButton btnSubmit;
+    private javax.swing.JComboBox<String> cmbClassification;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel lblGreet;
-    private javax.swing.JTextField txtPending;
+    private javax.swing.JTextField txtProblemSummary;
     // End of variables declaration//GEN-END:variables
 }
