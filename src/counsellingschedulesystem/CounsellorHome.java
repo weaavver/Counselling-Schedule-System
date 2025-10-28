@@ -20,31 +20,45 @@ public class CounsellorHome extends javax.swing.JFrame {
     
     public CounsellorHome(String name) {
         initComponents();
-        loadTableData();
+        loadRequestTableData();
         lblGreet.setText("Hello, "+ name +"!");
+        tblRequests.getColumnModel().getColumn(0).setPreferredWidth(10);
+        tblRequests.getColumnModel().getColumn(1).setPreferredWidth(40);
+        tblRequests.getColumnModel().getColumn(2).setPreferredWidth(200);
+        tblRequests.getColumnModel().getColumn(3).setPreferredWidth(10);
+        tblRequests.getColumnModel().getColumn(4).setPreferredWidth(40);
+        
+        
+        
+        
     }
 
-    private void loadTableData() {
-    DefaultTableModel model = (DefaultTableModel) tblRequests.getModel();
-    model.setRowCount(0); // clear old data
+    private void loadRequestTableData() {
+        DefaultTableModel model = (DefaultTableModel) tblRequests.getModel();
+        model.setRowCount(0); // clear old data
 
-    try {
-        ResultSet rs = AppointmentAndRequestsDao.getAllPendingRequests();
-        while (rs.next()) {
-            Object[] row = {
-                rs.getInt("requestID"),
-                rs.getInt("userID"),
-                rs.getString("classification"),
-                rs.getString("problemSummary"),
-                rs.getString("status"),
-                rs.getTimestamp("requestDate")
-            };
-            model.addRow(row);
+        try {
+            ResultSet rs = AppointmentAndRequestsDao.getAllPendingRequests();
+            while (rs.next()) {
+                Object[] row = {
+                    rs.getInt("requestID"),
+                    // rs.getInt("userID"),
+                    rs.getString("classification"),
+                    rs.getString("problemSummary"),
+                    rs.getString("status"),
+                    rs.getString("requestDate")
+                };
+                model.addRow(row);
+            }
+        } 
+        catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
         }
-    } catch (Exception e) {
-        JOptionPane.showMessageDialog(null, e);
     }
-}
+    
+    private void loadAppointmentsTableData(){
+        
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -57,6 +71,13 @@ public class CounsellorHome extends javax.swing.JFrame {
         lblGreet = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
         tblRequests = new javax.swing.JTable();
+        jLabel1 = new javax.swing.JLabel();
+        btnConfirm = new javax.swing.JButton();
+        requestIDtxt = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        tblAppointments = new javax.swing.JTable();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -64,6 +85,53 @@ public class CounsellorHome extends javax.swing.JFrame {
         lblGreet.setText("$GREET$");
 
         tblRequests.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Request ID", "Classification", "Problem Summary", "Status", "Request Date"
+            }
+        ) {
+            boolean[] canEdit = new boolean [] {
+                true, false, false, false, false
+            };
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
+        });
+        jScrollPane1.setViewportView(tblRequests);
+        if (tblRequests.getColumnModel().getColumnCount() > 0) {
+            tblRequests.getColumnModel().getColumn(1).setResizable(false);
+            tblRequests.getColumnModel().getColumn(2).setResizable(false);
+            tblRequests.getColumnModel().getColumn(3).setResizable(false);
+            tblRequests.getColumnModel().getColumn(4).setResizable(false);
+        }
+
+        jLabel1.setText("Input Request ID:");
+
+        btnConfirm.setText("Confirm");
+        btnConfirm.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnConfirmActionPerformed(evt);
+            }
+        });
+
+        requestIDtxt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                requestIDtxtActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("Your Appointments");
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel3.setText("Requests");
+
+        tblAppointments.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -74,31 +142,78 @@ public class CounsellorHome extends javax.swing.JFrame {
                 "Title 1", "Title 2", "Title 3", "Title 4"
             }
         ));
-        jScrollPane1.setViewportView(tblRequests);
+        jScrollPane2.setViewportView(tblAppointments);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addGap(85, 85, 85)
-                .addComponent(lblGreet)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 617, Short.MAX_VALUE)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(23, 23, 23))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(57, 57, 57)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(lblGreet)
+                            .addComponent(jLabel2)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 424, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 87, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 694, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(42, 42, 42))
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel3)
+                                .addContainerGap())))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(btnConfirm)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel1)
+                                .addGap(18, 18, 18)
+                                .addComponent(requestIDtxt, javax.swing.GroupLayout.PREFERRED_SIZE, 74, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(0, 0, Short.MAX_VALUE))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addGap(31, 31, 31)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblGreet)
+                    .addComponent(jLabel3))
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(lblGreet))
-                .addContainerGap(220, Short.MAX_VALUE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel1)
+                            .addComponent(requestIDtxt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnConfirm))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(76, 76, 76)
+                        .addComponent(jLabel2)
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 227, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addContainerGap(285, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
+        String id = requestIDtxt.getText();
+        
+    }//GEN-LAST:event_btnConfirmActionPerformed
+
+    private void requestIDtxtActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_requestIDtxtActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_requestIDtxtActionPerformed
 
     /**
      * @param args the command line arguments
@@ -137,8 +252,15 @@ public class CounsellorHome extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnConfirm;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JLabel lblGreet;
+    private javax.swing.JTextField requestIDtxt;
+    private javax.swing.JTable tblAppointments;
     private javax.swing.JTable tblRequests;
     // End of variables declaration//GEN-END:variables
 }

@@ -39,7 +39,7 @@ public class AppointmentAndRequestsDao {
     public static ResultSet getAllPendingRequests(){
         try{
             Connection con = ConnectionProvider.getCon();
-            String sql = "SELECT requestID, UserID, classification, problemSummary, status, requestDate FROM pending_requests";
+            String sql = "SELECT requestID, UserID, classification, problemSummary, status, requestDate FROM pending_requests WHERE status = 'pending' ";
             PreparedStatement ps = con.prepareStatement(sql);
             return ps.executeQuery();
         }
@@ -49,4 +49,7 @@ public class AppointmentAndRequestsDao {
         }
     }
     
+//    public static boolean AddtoAppointments(String ID){
+//       return 1;
+//    }
 }
