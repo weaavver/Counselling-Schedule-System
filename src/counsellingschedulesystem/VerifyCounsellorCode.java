@@ -3,7 +3,6 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package counsellingschedulesystem;
-import dao.UserDao;
 import javax.swing.JOptionPane; 
 /**
  *

@@ -5,11 +5,9 @@ import java.util.Properties;
 
 public class EmailSender {
     public static boolean send(String toEmail, String code) {
-        // Replace with your details 
-        //String to = email;       // Receiver's email
-        String from = "emanuelmalbarosa4@gmail.com";      // Your Gmail
+        String from = "emanuelmalbarosa4@gmail.com"; 
         System.out.println(toEmail);
-        String password = "kpilzbrrejcsifyx";     // App password, NOT your real password
+        String password = "kpilzbrrejcsifyx";     // Google gave this password, NOT your real password, I forgot how to get this from the google account you'll use, watch youtube = jakartamail sender tutorial
 
         // Set SMTP properties
         Properties props = new Properties();
@@ -18,7 +16,6 @@ public class EmailSender {
         props.put("mail.smtp.auth", "true");
         props.put("mail.smtp.starttls.enable", "true");
 
-        // Authenticate
         Session session = Session.getInstance(props, new Authenticator() {
             @Override
             protected PasswordAuthentication getPasswordAuthentication() {
@@ -27,7 +24,7 @@ public class EmailSender {
         });
 
         try {
-            // Compose message
+            // Ready the message
             Message message = new MimeMessage(session);
             message.setFrom(new InternetAddress(from));
             message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(toEmail));

@@ -11,7 +11,7 @@ import javax.swing.JOptionPane;
  */
 
 public class VerifyCode extends javax.swing.JFrame {
-private String email;
+private String email; //deeznuts
     /**
      * Creates new form VerifyCode
      */

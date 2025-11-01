@@ -156,7 +156,7 @@ private String email;
         if(updated){
             JOptionPane.showMessageDialog(null, "The password has been successfully updated! Please sign in.");
             new Login().setVisible(true);
-            this.dispose(); // closes the current ForgotPassword window
+            this.dispose(); 
         }
         else{
             System.out.println("An error has occured");

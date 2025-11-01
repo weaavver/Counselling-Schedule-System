@@ -11,7 +11,7 @@ import java.security.SecureRandom;
 public class CodeGenerator {
     private static final SecureRandom random = new SecureRandom();
 
-    // Generates a 6-digit code (e.g., 483920)
+    // Generates a random 6 digit code (ex.483920)
     public static String generateCode() {
         int code = 100000 + random.nextInt(900000);
         return String.valueOf(code);

@@ -5,6 +5,7 @@
 package counsellingschedulesystem;
 import javax.swing.JFrame;
 import dao.UserDao;
+import model.LoginResult;
 import javax.swing.JOptionPane;
 
 /**
@@ -58,32 +59,37 @@ public class CounselorLogin extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         jLabel1.setText("Counselor's Log in Page");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(422, 21, -1, -1));
 
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel2.setText("Username");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 125, -1, -1));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 130, -1, -1));
 
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel3.setText("Password");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 165, -1, -1));
 
+        btnLogin.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnLogin.setText("Log in");
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnLoginActionPerformed(evt);
             }
         });
-        getContentPane().add(btnLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(502, 190, -1, -1));
+        getContentPane().add(btnLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 190, -1, -1));
 
+        btnForgotPassword.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnForgotPassword.setText("Forgot Password ?");
         btnForgotPassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnForgotPasswordActionPerformed(evt);
             }
         });
-        getContentPane().add(btnForgotPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(502, 219, -1, -1));
+        getContentPane().add(btnForgotPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 220, -1, -1));
 
+        btnSignup.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         btnSignup.setText("Sign up");
         btnSignup.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -92,23 +98,25 @@ public class CounselorLogin extends javax.swing.JFrame {
         });
         getContentPane().add(btnSignup, new org.netbeans.lib.awtextra.AbsoluteConstraints(722, 190, -1, -1));
 
+        txtUsername.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         txtUsername.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtUsernameKeyReleased(evt);
             }
         });
-        getContentPane().add(txtUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(505, 122, 289, -1));
+        getContentPane().add(txtUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 130, 290, -1));
 
+        txtPassword.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         txtPassword.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtPasswordKeyReleased(evt);
             }
         });
-        getContentPane().add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(502, 162, 292, -1));
+        getContentPane().add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 160, 292, -1));
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Sign in counselor 1.jpg"))); // NOI18N
         jLabel4.setText("jLabel4");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(-230, -50, -1, -1));
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(-220, -300, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -118,24 +126,24 @@ public class CounselorLogin extends javax.swing.JFrame {
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
         String username = txtUsername.getText();
         String password = txtPassword.getText();
-        
-        if(counter < 3){
-            if (UserDao.CounsellorLogin(username, password)) {
+
+        if (counter < 3) {
+            LoginResult result = UserDao.CounsellorLogin(username, password);
+            if (result.isSuccess()) {
                 JOptionPane.showMessageDialog(this, "Login successful!");
-        
-                new CounsellorHome(username).setVisible(true);
+            
+                int counsellorID = result.getCounsellorID();
+                new CounsellorHome(username, counsellorID).setVisible(true);
                 this.dispose();
-            }   
-            else {
+            } else {
                 counter++;
                 txtPassword.setText("");
                 JOptionPane.showMessageDialog(this, "Invalid username or password");
             }
-        }
-        else{
+        } else {
             JOptionPane.showMessageDialog(this, "Too many failed attempts!");
             this.dispose();
-        }
+            }
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void txtUsernameKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtUsernameKeyReleased
@@ -152,7 +160,7 @@ public class CounselorLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_btnForgotPasswordActionPerformed
 
     private void btnSignupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnSignupActionPerformed
-        new CounselorSignup().setVisible(true); //typo
+        new CounselorSignup().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnSignupActionPerformed
 

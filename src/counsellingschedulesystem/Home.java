@@ -4,8 +4,10 @@
  */
 package counsellingschedulesystem;
 import dao.AppointmentAndRequestsDao;
+import java.sql.ResultSet;
 import model.Request;
 import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
 /**
  *
  * @author Admin
@@ -19,11 +21,37 @@ private String name;
     private Integer currentUserID;
     public Home(String name, Integer currentUserID) {
         initComponents();
+        
+        loadAppointmentsTableData(currentUserID);
         this.currentUserID = currentUserID;
         cmbClassification.setModel(new javax.swing.DefaultComboBoxModel<>(items));        
         lblGreet.setText("Hello, "+ name +"!");
-    }
+    } 
 
+    private void loadAppointmentsTableData(int currentUserID) {
+        DefaultTableModel model = (DefaultTableModel) tblAppointments.getModel();
+        model.setRowCount(0);
+
+        try {
+            ResultSet rs = AppointmentAndRequestsDao.getAppointmentsByUser(currentUserID);
+
+            while (rs.next()) {
+                Object[] row = {
+                    rs.getInt("appointmentID"),
+                    //rs.getInt("requestID"),
+                    rs.getString("userName"),
+                    rs.getString("counsellorName"),
+                    rs.getDate("appointmentDate"),
+                    rs.getTime("appointmentTime"),
+                    rs.getString("status")
+            };
+            model.addRow(row);
+        }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, e);
+            }
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -42,6 +70,12 @@ private String name;
         txtProblemSummary = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        tblAppointments = new javax.swing.JTable();
+        jLabel3 = new javax.swing.JLabel();
+        btnCancelAppointment = new javax.swing.JButton();
+        txtAppointmentID = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -49,7 +83,7 @@ private String name;
         jLabel1.setText("HOME PAGE");
 
         lblGreet.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
-        lblGreet.setText("Welcome");
+        lblGreet.setText("$GREET$");
 
         jLabel2.setText("Apply for Counseling");
 
@@ -79,40 +113,79 @@ private String name;
 
         jLabel5.setText("Problem");
 
+        tblAppointments.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Appointment ID", "Patient Name", "Assigned Counsellor", "Date", "Time"
+            }
+        ));
+        jScrollPane1.setViewportView(tblAppointments);
+
+        jLabel3.setText("Your Schedules");
+
+        btnCancelAppointment.setText("Cancel an Appointment");
+        btnCancelAppointment.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnCancelAppointmentActionPerformed(evt);
+            }
+        });
+
+        txtAppointmentID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtAppointmentIDActionPerformed(evt);
+            }
+        });
+
+        jLabel6.setText("Appointment ID");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(60, 60, 60)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(60, 60, 60)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(lblGreet)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addContainerGap(520, Short.MAX_VALUE)
-                        .addComponent(jLabel1)
-                        .addGap(174, 174, 174)))
-                .addGap(349, 349, 349))
-            .addGroup(layout.createSequentialGroup()
+                    .addComponent(lblGreet)
+                    .addComponent(jLabel2))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(35, 35, 35)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel4)
                     .addComponent(jLabel5))
                 .addGap(26, 26, 26)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(cmbClassification, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(txtProblemSummary, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
+                        .addGap(3, 3, 3)
                         .addComponent(btnSubmit)
-                        .addGap(18, 18, 18)
-                        .addComponent(btnClear)))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(btnClear))
+                    .addComponent(txtProblemSummary, javax.swing.GroupLayout.PREFERRED_SIZE, 394, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(cmbClassification, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 52, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 624, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel3))
+                .addGap(52, 52, 52))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addGap(523, 523, 523))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                            .addComponent(btnCancelAppointment)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel6)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(txtAppointmentID, javax.swing.GroupLayout.PREFERRED_SIZE, 47, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addGap(495, 495, 495))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -123,19 +196,29 @@ private String name;
                 .addComponent(lblGreet)
                 .addGap(59, 59, 59)
                 .addComponent(jLabel2)
-                .addGap(56, 56, 56)
+                .addGap(65, 65, 65)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(cmbClassification, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel3))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(txtProblemSummary, javax.swing.GroupLayout.PREFERRED_SIZE, 209, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel5)
+                            .addComponent(txtProblemSummary, javax.swing.GroupLayout.PREFERRED_SIZE, 125, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(btnClear)
+                            .addComponent(btnSubmit)))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 157, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(btnClear)
-                    .addComponent(btnSubmit))
-                .addContainerGap(169, Short.MAX_VALUE))
+                    .addComponent(txtAppointmentID, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel6))
+                .addGap(12, 12, 12)
+                .addComponent(btnCancelAppointment)
+                .addContainerGap(163, Short.MAX_VALUE))
         );
 
         pack();
@@ -158,6 +241,30 @@ private String name;
         
         JOptionPane.showMessageDialog(null, "Request sent successfully!");
     }//GEN-LAST:event_btnSubmitActionPerformed
+
+    private void txtAppointmentIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtAppointmentIDActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtAppointmentIDActionPerformed
+
+    private void btnCancelAppointmentActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelAppointmentActionPerformed
+        try {
+            int appointmentID = Integer.parseInt(txtAppointmentID.getText().trim());
+            dao.AppointmentAndRequestsDao.cancelAppointment(appointmentID);
+            JOptionPane.showMessageDialog(this, "Appointment cancelled successfully!");
+            txtAppointmentID.setText("");
+            loadAppointmentsTableData(currentUserID);
+
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(this, "Invalid appointment ID format.");
+        } catch (Exception e) {
+            if (e.getMessage().contains("No appointment found")) {
+                JOptionPane.showMessageDialog(this, "Appointment ID does not exist.");
+            } else {
+                JOptionPane.showMessageDialog(this, "Error completing appointment: " + e.getMessage());
+            }
+        e.printStackTrace();
+            }
+    }//GEN-LAST:event_btnCancelAppointmentActionPerformed
 
     /**
      * @param args the command line arguments
@@ -194,14 +301,20 @@ private String name;
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton btnCancelAppointment;
     private javax.swing.JButton btnClear;
     private javax.swing.JButton btnSubmit;
     private javax.swing.JComboBox<String> cmbClassification;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel lblGreet;
+    private javax.swing.JTable tblAppointments;
+    private javax.swing.JTextField txtAppointmentID;
     private javax.swing.JTextField txtProblemSummary;
     // End of variables declaration//GEN-END:variables
 }

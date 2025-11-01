@@ -12,7 +12,7 @@ import org.mindrot.jbcrypt.BCrypt;
  * @author Admin
  */
 public class ResetPassword extends javax.swing.JFrame {
-private String email;
+private String email; //deeznuts
     /**
      * Creates new form ResetPassword
      */
@@ -155,7 +155,7 @@ private String email;
         if(updated){
             JOptionPane.showMessageDialog(null, "The password has been successfully updated! Please sign in.");            
             new Login().setVisible(true);
-            this.dispose(); // closes the current ForgotPassword window            
+            this.dispose();           
         }
         else{
             System.out.println("An error has occured");

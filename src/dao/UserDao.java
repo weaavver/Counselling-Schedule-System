@@ -4,12 +4,12 @@
  */
 package dao;
 import java.sql.*;
-import javax.swing.JOptionPane;
 import java.sql.PreparedStatement;
 import javax.swing.JOptionPane;
 import java.sql.ResultSet;
 import model.User;
 import model.Counsellor;
+import model.LoginResult;
 import org.mindrot.jbcrypt.BCrypt;
 
 /**
@@ -41,7 +41,29 @@ public class UserDao {
     
     }
     
-public static Integer UserLogin(String username, String password) {
+public static String CurrentUserName(String username) {
+    String sql = "SELECT name FROM UsersTbl WHERE username = ?";
+
+    try (Connection con = ConnectionProvider.getCon();
+         PreparedStatement ps = con.prepareStatement(sql)) {
+
+        ps.setString(1, username);
+
+        try (ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                return rs.getString("name"); // ret name
+            } else {
+                return null;
+            }
+        }
+
+    } catch (Exception e) {
+        JOptionPane.showMessageDialog(null, e, "Error", JOptionPane.ERROR_MESSAGE);
+        return null;
+    }
+}
+    
+    public static Integer UserLogin(String username, String password) {
     String sql = "SELECT ID, password FROM UsersTbl WHERE username = ?";
 
     try (Connection con = ConnectionProvider.getCon();
@@ -54,7 +76,7 @@ public static Integer UserLogin(String username, String password) {
                 int userID = rs.getInt("ID");
                 String storedHash = rs.getString("password");
 
-                // ✅ Compare the entered password (unhashed) with the stored bcrypt hash
+                // Compare the entered password (unhashed) with the stored bcrypt hash
                 if (BCrypt.checkpw(password, storedHash)) {
                     return userID; // login success
                 } else {
@@ -68,7 +90,7 @@ public static Integer UserLogin(String username, String password) {
         JOptionPane.showMessageDialog(null, e, "Error", JOptionPane.ERROR_MESSAGE);
         return null;
     }
-}
+    }
     
         public static void registerCounsellor(Counsellor counsellor){
             String sql = "INSERT INTO counsellorstbl(name,specialty,license,availability,mobileNumber,email,username,password)"
@@ -95,33 +117,32 @@ public static Integer UserLogin(String username, String password) {
     
         }
     
-        public static boolean CounsellorLogin(String username, String password) {
-            String sql = "SELECT password FROM CounsellorsTbl WHERE username = ?";
+        public static LoginResult CounsellorLogin(String username, String password) {
+            String sql = "SELECT ID, password FROM CounsellorsTbl WHERE username = ?";
 
             try (Connection con = ConnectionProvider.getCon();
             PreparedStatement ps = con.prepareStatement(sql)) {
-
                 ps.setString(1, username);
             try (ResultSet rs = ps.executeQuery()) {
-
                 if (rs.next()) {
                     String storedHash = rs.getString("password");
+                    int counsellorID = rs.getInt("ID");
 
-                //Compare the entered password (unhashed) with the stored bcrypt hash
                     if (BCrypt.checkpw(password, storedHash)) {
-                        return true; // login success
+                        return new LoginResult(true, counsellorID);
                     } else {
-                        return false; // wrong password
-                            }
-                    } else {
-                        return false; // no such user
+                        return new LoginResult(false, -1);
                     }
-                }
+                } else {
+                    return new LoginResult(false, -1);
+                    }
+            }
             } catch (Exception e) {
                 JOptionPane.showMessageDialog(null, e, "Error", JOptionPane.ERROR_MESSAGE);
-                return false;
-            }
-        } 
+                return new LoginResult(false, -1);
+    }
+}
+
         
         public static boolean setUserResetCode(String email, String code) {
             try (Connection con = ConnectionProvider.getCon()) {

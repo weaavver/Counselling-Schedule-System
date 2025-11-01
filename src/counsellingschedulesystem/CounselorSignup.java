@@ -238,7 +238,7 @@ public class CounselorSignup extends javax.swing.JFrame {
 
     private void btnConfirmActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnConfirmActionPerformed
         String password = txtPassword.getText();
-        String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt());
+        String hashedPassword = BCrypt.hashpw(password, BCrypt.gensalt()); //hashes the 'password'
         
         Counsellor counsellor = new Counsellor();
         counsellor.setName(txtName.getText());
@@ -292,12 +292,12 @@ public class CounselorSignup extends javax.swing.JFrame {
     }//GEN-LAST:event_txtConfirmPasswordKeyReleased
 
     private void btnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnLoginActionPerformed
-        new CounselorLogin().setVisible(true); //typo
+        new CounselorLogin().setVisible(true);
         this.dispose();
     }//GEN-LAST:event_btnLoginActionPerformed
 
     private void btnUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnUserActionPerformed
-        new Login().setVisible(true); //typo
+        new Login().setVisible(true); 
         this.dispose();
     }//GEN-LAST:event_btnUserActionPerformed
 

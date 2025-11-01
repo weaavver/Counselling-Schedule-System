@@ -111,7 +111,7 @@ public class ForgotPassword extends javax.swing.JFrame {
             boolean updated = (dao.EmailSender.send(email, code));
             JOptionPane.showMessageDialog(null, "The email has been sent!");
             new VerifyCode(email).setVisible(true);
-            this.dispose(); // closes the current ForgotPassword window
+            this.dispose(); 
     }//GEN-LAST:event_btnSendActionPerformed
 
     private void txtEmailKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtEmailKeyReleased

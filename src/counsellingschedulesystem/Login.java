@@ -124,11 +124,12 @@ public class Login extends javax.swing.JFrame {
         String password = txtPassword.getText();
         
         if (counter < 3){
+            String name = UserDao.CurrentUserName(username);
             Integer currentUserID = UserDao.UserLogin(username, password);
             if (currentUserID != null) {
                 JOptionPane.showMessageDialog(this, "Login successful!");
         
-                new Home(username, currentUserID).setVisible(true);
+                new Home(name, currentUserID).setVisible(true);
                 this.dispose();
             }   
             else {
