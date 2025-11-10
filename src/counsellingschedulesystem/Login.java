@@ -19,6 +19,8 @@ public class Login extends javax.swing.JFrame {
     public Login() {
         initComponents();
         setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setLocationRelativeTo(null);    
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
         setLocationRelativeTo(null);
         btnLogin.setEnabled(false);
     }
@@ -28,6 +30,9 @@ public class Login extends javax.swing.JFrame {
         
         if(!username.equals("") && !password.equals("")){
             btnLogin.setEnabled(true);
+        }
+        else{
+            btnLogin.setEnabled(false);
         }
     }
 
@@ -58,9 +63,11 @@ public class Login extends javax.swing.JFrame {
         jLabel1.setText("Log in");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(535, 52, -1, -1));
 
+        jLabel2.setFont(new java.awt.Font("JetBrainsMonoNL NFM Light", 1, 12)); // NOI18N
         jLabel2.setText("Username");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 158, -1, -1));
 
+        jLabel3.setFont(new java.awt.Font("JetBrainsMono NFM Light", 1, 12)); // NOI18N
         jLabel3.setText("Password");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 198, -1, -1));
 

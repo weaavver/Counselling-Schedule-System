@@ -4,6 +4,7 @@
  */
 package counsellingschedulesystem;
 import dao.UserDao;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import org.mindrot.jbcrypt.BCrypt;
 
@@ -18,6 +19,10 @@ private String email; //deeznuts
      */
     public ResetPassword(String email) {
         initComponents();
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setLocationRelativeTo(null);    
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setLocationRelativeTo(null);
         this.email = email; // Stores the email from previous step
         btnConfirm.setEnabled(false);
     }
@@ -43,10 +48,13 @@ private String email; //deeznuts
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         jLabel1.setText("Reset Password");
 
+        jLabel2.setFont(new java.awt.Font("JetBrains Mono NL Light", 0, 12)); // NOI18N
         jLabel2.setText("New Password");
 
+        jLabel3.setFont(new java.awt.Font("JetBrains Mono NL Light", 0, 12)); // NOI18N
         jLabel3.setText("Confirm New Password");
 
+        txtNewPassword.setFont(new java.awt.Font("JetBrains Mono NL Light", 0, 12)); // NOI18N
         txtNewPassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtNewPasswordActionPerformed(evt);
@@ -58,6 +66,7 @@ private String email; //deeznuts
             }
         });
 
+        txtConfirmNewPassword.setFont(new java.awt.Font("JetBrains Mono NL Light", 0, 12)); // NOI18N
         txtConfirmNewPassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtConfirmNewPasswordActionPerformed(evt);
@@ -69,6 +78,7 @@ private String email; //deeznuts
             }
         });
 
+        btnConfirm.setFont(new java.awt.Font("JetBrains Mono NL Light", 0, 12)); // NOI18N
         btnConfirm.setText("Confirm");
         btnConfirm.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -98,7 +108,7 @@ private String email; //deeznuts
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(txtNewPassword)
                             .addComponent(txtConfirmNewPassword, javax.swing.GroupLayout.PREFERRED_SIZE, 332, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(406, Short.MAX_VALUE))
+                .addContainerGap(390, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -115,7 +125,7 @@ private String email; //deeznuts
                     .addComponent(txtConfirmNewPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addComponent(btnConfirm)
-                .addContainerGap(414, Short.MAX_VALUE))
+                .addContainerGap(411, Short.MAX_VALUE))
         );
 
         pack();

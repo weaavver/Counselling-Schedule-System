@@ -4,6 +4,7 @@
  */
 package counsellingschedulesystem;
 import dao.UserDao;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane; 
 /**
  *
@@ -18,7 +19,10 @@ private String email; //deeznuts
     public VerifyCode(String email) {
         initComponents();
         this.email = email; // Stores the email from previous step
-        
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setLocationRelativeTo(null);    
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setLocationRelativeTo(null);
         btnVerify.setEnabled(false);
     }
 

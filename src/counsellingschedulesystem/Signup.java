@@ -20,7 +20,9 @@ public class Signup extends javax.swing.JFrame {
     public Signup() {
         initComponents();
         setExtendedState(JFrame.MAXIMIZED_BOTH);
-        setLocationRelativeTo(null);        
+        setLocationRelativeTo(null);    
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setLocationRelativeTo(null);
         btnSignup.setEnabled(false);
     }
     public void Clear()  {

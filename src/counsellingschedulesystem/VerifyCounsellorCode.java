@@ -3,6 +3,7 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package counsellingschedulesystem;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane; 
 /**
  *
@@ -17,7 +18,10 @@ private String email;
     public VerifyCounsellorCode(String email) {
         initComponents();
         this.email = email;
-
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setLocationRelativeTo(null);    
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setLocationRelativeTo(null);
         btnVerify.setEnabled(false);
     }
 

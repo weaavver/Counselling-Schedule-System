@@ -7,6 +7,7 @@ package counsellingschedulesystem;
 import dao.UserDao;
 import dao.CodeGenerator;
 import dao.EmailSender;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 
 /**
@@ -20,6 +21,10 @@ public class CounsellorForgotPassword extends javax.swing.JFrame {
      */
     public CounsellorForgotPassword() {
         initComponents();
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setLocationRelativeTo(null);    
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setLocationRelativeTo(null);
         btnSend.setEnabled(false);
     }
 
@@ -114,7 +119,7 @@ public class CounsellorForgotPassword extends javax.swing.JFrame {
             String code = CodeGenerator.generateCode();
             String email = txtEmail.getText();
             UserDao.setCounsellorResetCode(email, code);
-            boolean updated = (dao.EmailSender.send(email, code));
+            boolean updated = (dao.EmailSender.sendCode(email, code));
             JOptionPane.showMessageDialog(null, "The email has been sent!");
             new VerifyCounsellorCode(email).setVisible(true);
             this.dispose(); 

@@ -54,6 +54,7 @@ public class CounselorLogin extends javax.swing.JFrame {
         btnSignup = new javax.swing.JButton();
         txtUsername = new javax.swing.JTextField();
         txtPassword = new javax.swing.JPasswordField();
+        btnStudentLogin = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -114,6 +115,14 @@ public class CounselorLogin extends javax.swing.JFrame {
         });
         getContentPane().add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 160, 292, -1));
 
+        btnStudentLogin.setText(" Are you a student?");
+        btnStudentLogin.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnStudentLoginActionPerformed(evt);
+            }
+        });
+        getContentPane().add(btnStudentLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 220, -1, -1));
+
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Sign in counselor 1.jpg"))); // NOI18N
         jLabel4.setText("jLabel4");
         getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(-220, -300, -1, -1));
@@ -164,6 +173,11 @@ public class CounselorLogin extends javax.swing.JFrame {
         this.dispose();
     }//GEN-LAST:event_btnSignupActionPerformed
 
+    private void btnStudentLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnStudentLoginActionPerformed
+        new Login().setVisible(true);
+        this.dispose();
+    }//GEN-LAST:event_btnStudentLoginActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -203,6 +217,7 @@ public class CounselorLogin extends javax.swing.JFrame {
     private javax.swing.JButton btnForgotPassword;
     private javax.swing.JButton btnLogin;
     private javax.swing.JButton btnSignup;
+    private javax.swing.JButton btnStudentLogin;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

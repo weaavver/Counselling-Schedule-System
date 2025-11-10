@@ -4,14 +4,10 @@
  */
 package dao;
 import java.sql.*;
-import javax.swing.JOptionPane;
 import java.sql.PreparedStatement;
 import javax.swing.JOptionPane;
 import java.sql.ResultSet;
-import model.User;
-import model.Counsellor;
 import model.Request;
-import org.mindrot.jbcrypt.BCrypt;
 /**
  *
  * @author Admin

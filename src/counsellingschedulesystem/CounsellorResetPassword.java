@@ -4,6 +4,7 @@
  */
 package counsellingschedulesystem;
 import dao.UserDao;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import org.mindrot.jbcrypt.BCrypt;
 /**
@@ -17,6 +18,10 @@ private String email;
      */
     public CounsellorResetPassword(String email) {
         initComponents();
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setLocationRelativeTo(null);    
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setLocationRelativeTo(null);
         this.email = email; // Stores the email from previous step
         btnConfirm.setEnabled(false);
     }

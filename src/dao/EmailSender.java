@@ -4,11 +4,11 @@ import jakarta.mail.internet.*;
 import java.util.Properties;
 
 public class EmailSender {
-    public static boolean send(String toEmail, String code) {
+    public static boolean sendCode(String toEmail, String code) {
         String from = "emanuelmalbarosa4@gmail.com"; 
         System.out.println(toEmail);
-        String password = "kpilzbrrejcsifyx";     // Google gave this password, NOT your real password, I forgot how to get this from the google account you'll use, watch youtube = jakartamail sender tutorial
-
+        String password = "kpilzbrrejcsifyx";     // Google gave this password, NOT MY REAL ONE!!. I forgot how to get this from the google account you'll use, watch youtube = jakartamail sender tutorial
+        //OR IF YOU CANT FIND THE TUTORIAL JUST FIND IT YOURSELF, its like a password generator from your own acc and for your own
         // Set SMTP properties
         Properties props = new Properties();
         props.put("mail.smtp.host", "smtp.gmail.com");
@@ -33,7 +33,7 @@ public class EmailSender {
             
             // Send it
             Transport.send(message);
-            System.out.println("✅ Email sent successfully!");
+            System.out.println("Email sent successfully!");
 
         } catch (MessagingException e) {
             e.printStackTrace();

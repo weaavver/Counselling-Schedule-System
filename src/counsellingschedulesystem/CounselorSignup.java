@@ -21,7 +21,9 @@ public class CounselorSignup extends javax.swing.JFrame {
         initComponents();
         cmboSpecialization.setModel(new javax.swing.DefaultComboBoxModel<>(items));
         setExtendedState(JFrame.MAXIMIZED_BOTH);
-        setLocationRelativeTo(null);        
+        setLocationRelativeTo(null);    
+        setExtendedState(JFrame.MAXIMIZED_BOTH);
+        setLocationRelativeTo(null);
         btnConfirm.setEnabled(false);
     }
         public void Clear()  {
