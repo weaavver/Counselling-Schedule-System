@@ -46,8 +46,8 @@ private String name;
                     //rs.getInt("requestID"),
                     rs.getString("userName"),
                     rs.getString("counsellorName"),
-                    rs.getDate("appointmentDate"),
-                    rs.getTime("appointmentTime"),
+                    rs.getString("appointmentDate"),
+                    rs.getString("appointmentTime"),
                     rs.getString("status")
             };
             model.addRow(row);
@@ -257,7 +257,7 @@ private String name;
         request.setClassification(cmbClassification.getSelectedItem().toString());
         request.setProblemSummary(txtProblemSummary.getText());
         AppointmentAndRequestsDao.sendRequestAppointment(request);
-        
+        txtProblemSummary.setText("");
         JOptionPane.showMessageDialog(null, "Request sent successfully!");
     }//GEN-LAST:event_btnSubmitActionPerformed
 

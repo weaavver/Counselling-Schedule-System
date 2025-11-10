@@ -345,18 +345,16 @@ public class CounsellorHome extends javax.swing.JFrame {
             String time = txtTime.getText();
             int requestID = Integer.parseInt(txtRequestID.getText().trim());
 
-            //THESE DATE AND TIME ALSO!!
-            //java.sql.Date today = new java.sql.Date(System.currentTimeMillis());
-            //java.sql.Time timeNow = new java.sql.Time(System.currentTimeMillis());
-
             AppointmentAndRequestsDao.confirmRequest(requestID, counsellorID, date, time);
             
             JOptionPane.showMessageDialog(this, "Request confirmed and added to appointments!");
-
+            
             // refresh both tables
             loadRequestTableData();
             loadAppointmentsTableData(counsellorID);
-
+            txtTime.setText("");
+            txtDate.setText("");
+            txtRequestID.setText("");
         } 
         catch (Exception e) {
             JOptionPane.showMessageDialog(this, "Error: " + e.getMessage());
@@ -398,23 +396,40 @@ public class CounsellorHome extends javax.swing.JFrame {
 
     private void btnCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelActionPerformed
         try {
-            int appointmentID = Integer.parseInt(txtAppointmentID.getText().trim());
-            dao.AppointmentAndRequestsDao.cancelAppointment(appointmentID);
-            JOptionPane.showMessageDialog(this, "Appointment cancelled successfully!");
-            txtAppointmentID.setText("");
-            loadRequestTableData();
-            loadAppointmentsTableData(counsellorID);
+        int appointmentID = Integer.parseInt(txtAppointmentID.getText().trim());
+        
+        //cancelAppointment returns user info
+        java.util.Map<String, String> userInfo = dao.AppointmentAndRequestsDao.cancelAppointment(appointmentID);
 
-        } catch (NumberFormatException e) {
-            JOptionPane.showMessageDialog(this, "Invalid appointment ID format.");
-        } catch (Exception e) {
-            if (e.getMessage().contains("No appointment found")) {
-                JOptionPane.showMessageDialog(this, "Appointment ID does not exist.");
-            } else {
-                JOptionPane.showMessageDialog(this, "Error completing appointment: " + e.getMessage());
-            }
+        if (userInfo != null) {
+            String userEmail = userInfo.get("email");
+            String userName = userInfo.get("name");
+
+            String subject = "Counselling Appointment Cancelled";
+            String body = "Hello " + userName + ",\n\n"
+                        + "Your counselling appointment (ID: " + appointmentID + ") has been cancelled by your counsellor.\n\n"
+                        + "If you have any questions, please contact the counselling office.\n\n"
+                        + "Best regards,\n"
+                        + "Counselling System";
+
+            dao.EmailSender.sendEmail(userEmail, subject, body);
+        }
+
+        JOptionPane.showMessageDialog(this, "Appointment cancelled and user notified!");
+        txtAppointmentID.setText("");
+        loadRequestTableData();
+        loadAppointmentsTableData(counsellorID);
+
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "Invalid appointment ID format.");
+    } catch (Exception e) {
+        if (e.getMessage().contains("No appointment found")) {
+            JOptionPane.showMessageDialog(this, "Appointment ID does not exist.");
+        } else {
+            JOptionPane.showMessageDialog(this, "Error cancelling appointment: " + e.getMessage());
+        }
         e.printStackTrace();
-            }
+    }
     }//GEN-LAST:event_btnCancelActionPerformed
 
     private void txtAppointmentIDKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_txtAppointmentIDKeyReleased
