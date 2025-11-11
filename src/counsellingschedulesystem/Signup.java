@@ -96,7 +96,7 @@ public class Signup extends javax.swing.JFrame {
         setPreferredSize(new java.awt.Dimension(1253, 679));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         jLabel1.setText("Sign up");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(535, 63, -1, -1));
 
@@ -229,7 +229,7 @@ public class Signup extends javax.swing.JFrame {
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Sign up user1.jpg"))); // NOI18N
         jLabel11.setText("jLabel11");
-        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(-1080, -1290, -1, -1));
+        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(-1070, -1300, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

@@ -59,18 +59,19 @@ public class Login extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 36)); // NOI18N
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 48)); // NOI18N
         jLabel1.setText("Log in");
         getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(535, 52, -1, -1));
 
-        jLabel2.setFont(new java.awt.Font("JetBrainsMonoNL NFM Light", 1, 12)); // NOI18N
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel2.setText("Username");
         getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 158, -1, -1));
 
-        jLabel3.setFont(new java.awt.Font("JetBrainsMono NFM Light", 1, 12)); // NOI18N
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jLabel3.setText("Password");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 198, -1, -1));
 
+        txtPassword.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtPassword.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtPasswordKeyReleased(evt);
@@ -78,6 +79,7 @@ public class Login extends javax.swing.JFrame {
         });
         getContentPane().add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(442, 195, 323, -1));
 
+        txtUsername.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         txtUsername.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 txtUsernameKeyReleased(evt);
@@ -85,6 +87,7 @@ public class Login extends javax.swing.JFrame {
         });
         getContentPane().add(txtUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(445, 155, 320, -1));
 
+        btnLogin.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnLogin.setText("Log in");
         btnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -93,6 +96,7 @@ public class Login extends javax.swing.JFrame {
         });
         getContentPane().add(btnLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(442, 235, -1, -1));
 
+        btnSignup.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnSignup.setText("Sign up");
         btnSignup.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -101,6 +105,7 @@ public class Login extends javax.swing.JFrame {
         });
         getContentPane().add(btnSignup, new org.netbeans.lib.awtextra.AbsoluteConstraints(693, 235, -1, -1));
 
+        btnForgotPassword.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnForgotPassword.setText("Forgot Password ?");
         btnForgotPassword.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -109,13 +114,14 @@ public class Login extends javax.swing.JFrame {
         });
         getContentPane().add(btnForgotPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(442, 270, -1, -1));
 
+        btnCounselorLogin.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         btnCounselorLogin.setText("Are you a Counselor ?");
         btnCounselorLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 btnCounselorLoginActionPerformed(evt);
             }
         });
-        getContentPane().add(btnCounselorLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 270, -1, -1));
+        getContentPane().add(btnCounselorLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 270, -1, -1));
 
         jLabel4.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Sign in user1.jpg"))); // NOI18N
         jLabel4.setText("jLabel4");

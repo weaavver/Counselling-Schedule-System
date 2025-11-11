@@ -229,7 +229,7 @@ public class CounselorSignup extends javax.swing.JFrame {
         getContentPane().add(btnUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(689, 501, -1, -1));
 
         jLabel11.setIcon(new javax.swing.ImageIcon(getClass().getResource("/images/Sign up counselor 1.jpg"))); // NOI18N
-        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(-1110, -720, -1, -1));
+        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(-1200, -730, -1, -1));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
